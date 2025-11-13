@@ -1,0 +1,50 @@
+{
+  "expo": {
+    "name": "Cleer App",
+    "slug": "cleer",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "version": "1.0.0",
+    "splash": {
+      "image": "./assets/splash.png",
+      "backgroundColor": "#000"
+    },
+    "updates": {
+      "enabled": false
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "plugins": [
+      "react-native-iap"
+    ],
+    "ios": {
+      "buildNumber": "1.0.0",
+      "supportsTablet": true,
+      "bundleIdentifier": "so.movement.cleer",
+      "associatedDomains": [
+        "applinks:cleer.fitterapp.app",
+        "applinks:cleer.mvt.so"
+      ],
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app uses the camera to take photos for your profile.",
+        "NSMicrophoneUsageDescription": "This app uses the microphone to record video to share in your messages.",
+        "UIBackgroundModes": [
+          "audio"
+        ]
+      }
+    },
+    "android": {
+      "package": "so.movement.cleer",
+      "versionCode": 1,
+      "googleServicesFile": "./google-services.json"
+    },
+    "extra": {
+      "fitterApp": "cleer",
+      "eas": {
+        "projectId": "6cfc6442-146b-4af7-a93f-75b4273e4284"
+      }
+    }
+  }
+}

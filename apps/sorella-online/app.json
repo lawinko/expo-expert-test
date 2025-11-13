@@ -1,0 +1,63 @@
+{
+  "expo": {
+    "owner": "movementso",
+    "name": "SORELLA",
+    "slug": "sorella-online",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "version": "1.0.0",
+    "splash": {
+      "image": "./assets/splash.png",
+      "backgroundColor": "#000"
+    },
+    "updates": {
+      "enabled": false
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "plugins": [
+      "react-native-iap",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 35,
+            "targetSdkVersion": 35,
+            "buildToolsVersion": "35.0.0"
+          }
+        }
+      ]
+    ],
+    "ios": {
+      "buildNumber": "1.0.0",
+      "supportsTablet": true,
+      "bundleIdentifier": "so.movement.sorellaonline",
+      "associatedDomains": [
+        "applinks:app.sorellaonline.com",
+        "applinks:sorella-online.fitterapp.app",
+        "applinks:sorella-online.mvt.so"
+      ],
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app uses the camera to take photos for your profile.",
+        "NSMicrophoneUsageDescription": "This app uses the microphone to record video to share in your messages.",
+        "UIBackgroundModes": [
+          "audio"
+        ],
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "package": "so.movement.sorellaonline",
+      "versionCode": 1,
+      "googleServicesFile": "./google-services.json"
+    },
+    "extra": {
+      "fitterApp": "sorella-online",
+      "eas": {
+        "projectId": "4771d7c6-4826-4f31-9ed0-b50de823dd72"
+      }
+    }
+  }
+}

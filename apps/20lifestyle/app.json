@@ -1,0 +1,50 @@
+{
+  "expo": {
+    "name": "2.0FIT",
+    "slug": "20lifestyle",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "version": "1.0.2",
+    "splash": {
+      "image": "./assets/splash.png",
+      "backgroundColor": "#000"
+    },
+    "updates": {
+      "enabled": false
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "plugins": [
+      "react-native-iap"
+    ],
+    "ios": {
+      "buildNumber": "1.0.2",
+      "supportsTablet": true,
+      "bundleIdentifier": "so.movement.20lifestyle",
+      "associatedDomains": [
+        "applinks:20lifestyle.fitterapp.app",
+        "applinks:20lifestyle.mvt.so",
+        "applinks:20lifestyle.fitterapp.app",
+        "applinks:20lifestyle.mvt.so"
+      ],
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app uses the camera to take photos for your profile.",
+        "NSMicrophoneUsageDescription": "This app uses the microphone to record video to share in your messages.",
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "package": "so.movement.m20lifestyle",
+      "versionCode": 3,
+      "googleServicesFile": "./google-services.json"
+    },
+    "extra": {
+      "fitterApp": "20lifestyle",
+      "eas": {
+        "projectId": "8f558b10-fcfc-4673-97a0-1cdc440f1508"
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "596184087383",
+    "project_id": "movement-f6561",
+    "storage_bucket": "movement-f6561.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:596184087383:android:3e3bc52d7b08c9a0d05c12",
+        "android_client_info": {
+          "package_name": "app.fitterapp.sleeptime"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "596184087383-hmlpla7ejhsue8vvpbb7bao897kuoici.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-hIbnTlBfG9zDpAyCJRxiK6CSclSfdy4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "596184087383-hmlpla7ejhsue8vvpbb7bao897kuoici.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
