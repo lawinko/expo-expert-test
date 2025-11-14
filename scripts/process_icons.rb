@@ -5,13 +5,27 @@ require 'fileutils'
 require 'json'
 
 slug = ARGV[0]
+target = ARGV[1] || 'apps' # 'apps' (legacy) or 'unified'
 
 raise 'Please supply a valid trainer subdomain. E.g. samfitter' unless slug
 
 app_url = "https://#{slug}.mvt.so"
 
-output_dir = File.join(File.dirname(__FILE__), '..', 'apps', slug)
-assets_dir = File.join(output_dir, 'assets')
+root_dir =
+  if target == 'unified'
+    File.join(File.dirname(__FILE__), '..', 'unified-app')
+  else
+    File.join(File.dirname(__FILE__), '..', 'apps', slug)
+  end
+
+assets_dir =
+  if target == 'unified'
+    File.join(root_dir, 'assets', slug)
+  else
+    File.join(root_dir, 'assets')
+  end
+
+FileUtils.mkdir_p(assets_dir)
 splash_url = ''
 manifest = nil
 global_state = nil
@@ -57,13 +71,20 @@ end
 # So, we use imagemagick to ensure the png is actually a valid png file
 #
 # $(pwd) evaluates to the root of the repo
-`docker run --rm -v $(pwd)/apps/#{slug}/assets/:/imgs dpokidov/imagemagick /imgs/icon.png /imgs/icon.png`
+mount_path =
+  if target == 'unified'
+    "#{Dir.pwd}/unified-app/assets/#{slug}/"
+  else
+    "#{Dir.pwd}/apps/#{slug}/assets/"
+  end
+
+`docker run --rm -v #{mount_path}:/imgs dpokidov/imagemagick /imgs/icon.png /imgs/icon.png`
 
 puts '📎️ Processing splash.png'
 URI.open(splash_url) do |image|
   File.write(File.join(assets_dir, 'splash.png'), image.read)
 end
 # $(pwd) evaluates to the root of the repo
-`docker run --rm -v $(pwd)/apps/#{slug}/assets/:/imgs dpokidov/imagemagick /imgs/splash.png /imgs/splash.png`
+`docker run --rm -v #{mount_path}:/imgs dpokidov/imagemagick /imgs/splash.png /imgs/splash.png`
 
 puts '✅ Done'

@@ -2,56 +2,83 @@
 
 slug="$1"
 business_name="$2"
-apple_team_id="$3"
-apple_app_id="$4"
+apple_team_id="$3"   # unused in unified setup – kept for API compatibility
+apple_app_id="$4"    # unused in unified setup – kept for API compatibility
 
 set -e
 
-name=$(ruby ./scripts/get_app_name.rb $slug)
+if [ -z "$slug" ]; then
+  echo "Usage: scripts/new-app.sh <slug> [business_name] [apple_team_id] [apple_app_id]"
+  exit 1
+fi
+
+name=$(ruby ./scripts/get_app_name.rb "$slug" 2>/dev/null || true)
 
 if [ -z "$name" ]; then
-  echo "Error: Could not find name for $slug.mvt.so"
-  exit
-  exit 1
+  if [ -n "$business_name" ]; then
+    name="$business_name"
+  else
+    name="$slug"
+  fi
 fi
 
 echo "--------"
 echo "--"
-echo "-- Setting Up Expo App"
+echo "-- Creating unified app configuration"
+echo "-- Slug: $slug"
 echo "-- Name: $name"
 echo "-- URL: https://$slug.mvt.so"
 echo "--"
 
-echo "--> Creating Expo App"
-cd apps;
-npx create-expo-app $slug -t expo-template-blank-typescript
+config_dir="unified-app/app-configs"
+assets_dir="unified-app/assets/$slug"
+config_file="$config_dir/$slug.ts"
 
-echo "--> Removing Git from Expo app"
-cd ./$slug;
-rm -rf .git/
+if [ -f "$config_file" ]; then
+  echo "Error: Config already exists at $config_file"
+  exit 1
+fi
 
-echo "--> Creating app.json"
-cd ../../;
-./scripts/write-app-tsx.sh $slug $name
+mkdir -p "$config_dir" "$assets_dir"
 
-cd ./apps/$slug;
-echo "--> Installing Dependencies"
-npm install
+cat > "$config_file" <<EOF
+import type { WhiteLabelAppConfig } from "./types";
 
-echo "--> Setting up EAS"
-eas build:configure --platform all
+export const ${slug//-/_}Config: WhiteLabelAppConfig = {
+  id: "$slug",
+  name: "$name",
+  slug: "$slug",
+  webviewUrl: "https://$slug.mvt.so/",
 
-cd ../../;
-ruby ./scripts/setup_expo_auto_build.rb $slug $business_name $apple_team_id $apple_app_id
-ruby ./scripts/add_eas_attributes.rb $slug $business_name
+  iosBundleIdentifier: "so.movement.$slug",
+  androidPackage: "app.fitterapp.$slug",
 
-echo "--> Setting up app imagery"
-ruby ./scripts/process_icons.rb $slug
+  icon: "./assets/$slug/icon.png",
+  splashImage: "./assets/$slug/splash.png",
+  splashBackgroundColor: "#000",
 
-echo "--> Adding to Git"
-git add "apps/$slug/"
-git commit -m "[Auto] Created App $slug.mvt.so"
+  associatedDomains: [
+    "applinks:$slug.fitterapp.app",
+    "applinks:$slug.mvt.so",
+  ],
 
-echo "--> Starting EAS Build & Submission"
-cd ./apps/$slug;
-eas build -p all --profile production --auto-submit
+  easProjectId: "REPLACE_WITH_EAS_PROJECT_ID",
+  fitterApp: "$slug",
+
+  plugins: ["react-native-iap"],
+};
+EOF
+
+echo "--> Fetching icons and splash into $assets_dir (if available)"
+ruby ./scripts/process_icons.rb "$slug" unified || true
+
+echo
+echo "✅ Created unified app config:"
+echo "   - Config:  $config_file"
+echo "   - Assets:  $assets_dir"
+echo
+echo "Next steps:"
+echo "  1) Import ${slug//-/_}Config in unified-app/app-configs/index.ts and add it to the apps map."
+echo "  2) Extend the WhiteLabelAppId union in unified-app/app-configs/types.ts with \"$slug\"."
+echo "  3) Add build/submit profiles for \"$slug\" in unified-app/eas.json with env.APP_ID=\"$slug\"."
+echo "  4) Replace easProjectId with the actual EAS project ID once created."

@@ -1,0 +1,86 @@
+{
+  "cli": {
+    "version": ">= 5.9.1"
+  },
+  "build": {
+    "base": {
+      "node": "18.18.0"
+    },
+    "boundless-movement": {
+      "extends": "base",
+      "env": {
+        "APP_ID": "boundless-movement"
+      }
+    },
+    "sorella-online": {
+      "extends": "base",
+      "env": {
+        "APP_ID": "sorella-online"
+      }
+    },
+    "sleeptime": {
+      "extends": "base",
+      "env": {
+        "APP_ID": "sleeptime"
+      }
+    },
+    "cleer": {
+      "extends": "base",
+      "env": {
+        "APP_ID": "cleer"
+      }
+    },
+    "20lifestyle": {
+      "extends": "base",
+      "env": {
+        "APP_ID": "20lifestyle"
+      }
+    }
+  },
+  "submit": {
+    "boundless-movement": {
+      "android": {
+        "serviceAccountKeyPath": "../secrets/pc-api.json"
+      },
+      "ios": {
+        "appleId": "accounts@fitterapp.co",
+        "ascAppId": "6717586476"
+      }
+    },
+    "sorella-online": {
+      "android": {
+        "serviceAccountKeyPath": "../secrets/pc-api.json"
+      },
+      "ios": {
+        "appleId": "accounts@fitterapp.co"
+      }
+    },
+    "sleeptime": {
+      "android": {
+        "serviceAccountKeyPath": "../secrets/pc-api.json"
+      },
+      "ios": {
+        "appleId": "accounts@fitterapp.co",
+        "companyName": "Nichola Sutton",
+        "ascAppId": "6477843178"
+      }
+    },
+    "cleer": {
+      "android": {
+        "serviceAccountKeyPath": "../secrets/pc-api.json"
+      },
+      "ios": {
+        "appleId": "accounts@fitterapp.co",
+        "companyName": "Cleer AB"
+      }
+    },
+    "20lifestyle": {
+      "android": {
+        "serviceAccountKeyPath": "../secrets/pc-api.json"
+      },
+      "ios": {
+        "appleId": "accounts@fitterapp.co"
+      }
+    }
+  }
+}
