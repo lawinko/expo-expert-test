@@ -3,7 +3,7 @@
 This proposal describes why we chose to consolidate 50+ white‑label Expo apps into **one unified Expo project** (`unified-app/`) with **per‑app configuration files**, instead of moving to a traditional multi‑package monorepo. It also explains how this design supports deep per‑app customization (icons, themes, app IDs, Google Play JSONs, translations, etc.) while keeping **95%+ of the code shared**, and how the implementation is automated using scripts.
 
 Example implementation (this repo):  
-https://github.com/lawinko/expo-expert-test/tree/main/unified-app
+https://github.com/lawinko/expo-expert-test
 
 ---
 
