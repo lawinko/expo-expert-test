@@ -144,7 +144,7 @@ As with branding, translation differences are handled with configuration and dat
    - Upgrade it to the latest supported Expo SDK and modern third‑party dependencies.  
    - Move its source code and configuration into `unified-app/` as the canonical implementation.
 
-2. **Identify and document all differences across the existing apps, then generate per‑app config files reflecting those variations (using Ruby scripts to automate config creation).**  
+2. **Identify and document all differences across the existing apps, then generate per‑app config files reflecting those variations manually (or using Ruby scripts to automate config creation).**  
    - Programmatically inspect the existing apps under `apps/*` for differences in:  
      - App names, slugs, WebView URLs  
      - Bundle IDs and Android package names  
